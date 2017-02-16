@@ -910,21 +910,6 @@ class Post(BasePost):
         """Return the updated date as unicode."""
         return self.formatted_date(date_format, self.updated)
 
-    @staticmethod
-    def write_depfile(dest, deps_list, post=None, lang=None):
-        """Write a depfile for a given language."""
-        if post is None or lang is None:
-            deps_path = dest + '.dep'
-        else:
-            deps_path = post.compiler.get_dep_filename(post, lang)
-        if deps_list or (post.compiler.use_dep_file if post else False):
-            deps_list = [p for p in deps_list if p != dest]  # Don't depend on yourself (#1671)
-            with io.open(deps_path, "w+", encoding="utf8") as deps_file:
-                deps_file.write('\n'.join(deps_list))
-        else:
-            if os.path.isfile(deps_path):
-                os.unlink(deps_path)
-
     def deps(self, lang):
         """Return a list of file dependencies to build this post's page."""
         deps = super(Post, self).deps(lang)
