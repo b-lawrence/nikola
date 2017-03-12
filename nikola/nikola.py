@@ -1110,7 +1110,7 @@ class Nikola(object):
                         to_add.append(p)
             for name, p in self.disabled_compilers.items():
                 utils.LOGGER.debug('Not loading unneeded compiler {}', p[-1].name)
-            for name, plugins in self.disabled_compiler_extensions.items():
+            for _, plugins in self.disabled_compiler_extensions.items():
                 for p in plugins:
                     utils.LOGGER.debug('Not loading compiler extension {}', p[-1].name)
             if to_add:
